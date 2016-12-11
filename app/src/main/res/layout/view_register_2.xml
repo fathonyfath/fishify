@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/material_light_white"
+                android:text="@string/hint_namaLengkap"/>
+            <EditText
+                android:id="@+id/register_editNama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/material_light_white"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:layout_marginTop="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/material_light_white"
+                android:text="@string/hint_jenisKelamin"
+                android:layout_marginTop="16dp"/>
+
+            <RadioGroup
+                android:id="@+id/register_groupJenis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+                <RadioButton
+                    android:id="@+id/register_laki"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/jenis_laki"
+                    android:textColor="@color/material_light_white"
+                    android:theme="@style/JenisKelaminRadio"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/register_perempuan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/jenis_perempuan"
+                    android:textColor="@color/material_light_white"
+                    android:theme="@style/JenisKelaminRadio"/>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/material_light_white"
+                android:text="@string/hint_tanggalLahir"
+                android:layout_marginTop="16dp"/>
+            <EditText
+                android:id="@+id/register_editTanggalLahir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/material_light_white"
+                android:inputType="date"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:layout_marginTop="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/material_light_white"
+                android:text="@string/hint_email"
+                android:layout_marginTop="16dp"/>
+            <EditText
+                android:id="@+id/register_editEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/material_light_white"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/register_textRegister"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:textColor="@color/material_light_white"
+        android:background="@color/colorPrimaryDark"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="@string/text_register"
+        android:textSize="@dimen/font_18sp"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:clickable="true"/>
+
+</LinearLayout>

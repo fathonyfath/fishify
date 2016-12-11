@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <Space
+        android:id="@+id/register_space"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textStyle="italic"
+        android:textSize="@dimen/font_48sp"
+        android:textColor="@color/material_light_white"
+        android:layout_above="@+id/register_space"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/motto"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/font_12sp"
+        android:textColor="@color/material_light_white"
+        android:layout_below="@+id/register_space"
+        />
+
+</RelativeLayout>
