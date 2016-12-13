@@ -10,22 +10,18 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kelompok5.fishify.R;
-import com.kelompok5.fishify.controller.RegisterController;
+import com.kelompok5.fishify.controller.RegistrationController;
+import com.kelompok5.fishify.utils.AbstractView;
+import com.kelompok5.fishify.utils.Validator;
 import com.kelompok5.fishify.utils.mvc.BaseActivity;
-import com.mobsandgeeks.saripaar.ValidationError;
-import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.Email;
-import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.ogaclejapan.smarttablayout.utils.ViewPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.ViewPagerItems;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -35,7 +31,7 @@ import butterknife.ButterKnife;
  * Created by bradhawk on 11/30/2016.
  */
 
-public class RegisterActivity extends BaseActivity<RegisterController> {
+public class RegisterActivity extends BaseActivity<RegistrationController> {
 
     @BindView(R.id.register_viewPager)
     ViewPager registerViewPager;
@@ -46,8 +42,8 @@ public class RegisterActivity extends BaseActivity<RegisterController> {
     private ViewPagerItemAdapter adapter;
 
     @Override
-    protected RegisterController createController() {
-        return new RegisterController();
+    protected RegistrationController createController() {
+        return new RegistrationController();
     }
 
     @Override
@@ -98,27 +94,28 @@ public class RegisterActivity extends BaseActivity<RegisterController> {
     }
 
 
-    class Page1ViewHolder {
+    class Page1ViewHolder extends AbstractView {
 
         private View view;
 
         Page1ViewHolder(View view) {
             this.view = view;
         }
+
+        @Override
+        protected void onViewVisible() {
+
+        }
     }
 
-    class Page2ViewHolder implements Validator.ValidationListener {
+    class Page2ViewHolder extends AbstractView {
 
-        @NotEmpty
         @BindView(R.id.register_editNama)
         EditText namaLengkapEditText;
 
-        @NotEmpty
         @BindView(R.id.register_editTanggalLahir)
         EditText tanggalLahirEditText;
 
-        @NotEmpty
-        @Email
         @BindView(R.id.register_editEmail)
         EditText emailEditText;
 
@@ -130,7 +127,6 @@ public class RegisterActivity extends BaseActivity<RegisterController> {
 
         private View view;
 
-        private Validator validator;
         private Date birthDate;
 
         Calendar calendar = Calendar.getInstance();
@@ -150,13 +146,10 @@ public class RegisterActivity extends BaseActivity<RegisterController> {
             this.view = view;
             ButterKnife.bind(this, view);
 
-            validator = new Validator(this);
-            validator.setValidationListener(this);
-
             registerButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    validator.validate();
+                    validate();
                 }
             });
 
@@ -168,8 +161,36 @@ public class RegisterActivity extends BaseActivity<RegisterController> {
             });
         }
 
-        @Override
-        public void onValidationSucceeded() {
+        private void validate() {
+            CharSequence nama = namaLengkapEditText.getText();
+            CharSequence tanggalLahir = tanggalLahirEditText.getText();
+            CharSequence email = emailEditText.getText();
+
+            boolean pass = true;
+
+            if(!Validator.isEmailValid(email)) {
+                emailEditText.setError(getResources().getString(R.string.error_invalidEmail));
+                pass = false;
+            }
+
+            if(Validator.isEmpty(nama)) {
+                namaLengkapEditText.setError(getResources().getString(R.string.error_emptyField));
+                pass = false;
+            }
+
+            if(Validator.isEmpty(email)) {
+                emailEditText.setError(getResources().getString(R.string.error_emptyField));
+                pass = false;
+            }
+
+            if(Validator.isEmpty(tanggalLahir)) {
+                tanggalLahirEditText.setError(getResources().getString(R.string.error_emptyField));
+            }
+
+            if(pass) onValidationSucceeded();
+        }
+
+        private void onValidationSucceeded() {
             String namaLengkap = namaLengkapEditText.getText().toString();
             String jenisKelamin = (jenisKelaminGroup.getCheckedRadioButtonId()
                     == R.id.register_laki)? "Laki-Laki" : "Perempuan";
@@ -178,20 +199,6 @@ public class RegisterActivity extends BaseActivity<RegisterController> {
                 Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        }
-
-        @Override
-        public void onValidationFailed(List<ValidationError> errors) {
-            for (ValidationError error : errors) {
-                View view = error.getView();
-                String message = error.getCollatedErrorMessage(view.getContext());
-
-                if (view instanceof EditText) {
-                    ((EditText) view).setError(message);
-                } else {
-                    Toast.makeText(view.getContext(), message, Toast.LENGTH_LONG).show();
-                }
             }
         }
 
@@ -206,6 +213,11 @@ public class RegisterActivity extends BaseActivity<RegisterController> {
             new DatePickerDialog(view.getContext(), date, calendar
                     .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH)).show();
+        }
+
+        @Override
+        protected void onViewVisible() {
+
         }
     }
 }

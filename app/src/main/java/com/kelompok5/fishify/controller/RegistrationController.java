@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by bradhawk on 11/30/2016.
  */
 
-public class RegisterController extends BaseController {
+public class RegistrationController extends BaseController {
 
     public boolean register(String namaLengkap, String jenisKelamin, Date tanggalLahir, String email) {
         User newUser = new User(null, namaLengkap, jenisKelamin, tanggalLahir, email);

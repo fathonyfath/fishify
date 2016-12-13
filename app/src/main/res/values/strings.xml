@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">Fishify</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="main_listPeternakan">List Peternakan</string>
+    <string name="main_listIkanTernak">List Ikan Ternak</string>
+
+    <string name="navigation_listPeternakan">List Peternakan</string>
+    <string name="navigation_listIkanTernak">List Ikan Ternak</string>
+    <string name="navigation_keluar">Keluar</string>
+
+    <string name="daftarPeternakan_tidakAdaPeternakan">Tidak ada peternakan yang terdaftar, silahkan tambah peternakan anda terlebih dahulu.</string>
+
+    <string name="menu_tambahPeternakan">Tambah Peternakan</string>
+    <string name="menu_simpan">Simpan</string>
+    <string name="menu_batal">Batal</string>
 
     <string name="motto">Partnermu saat beternak ikan.</string>
     <string name="text_register">Register</string>
@@ -9,6 +24,22 @@
     <string name="hint_tanggalLahir">Tanggal Lahir</string>
     <string name="hint_email">Email</string>
 
+    <string name="hint_namaPeternakan">Nama Peternakan</string>
+    <string name="hint_panjangPeternakan">Panjang Peternakan</string>
+    <string name="hint_lebarPeternakan">Lebar Peternakan</string>
+
     <string name="jenis_laki">Laki-laki</string>
     <string name="jenis_perempuan">Perempuan</string>
+
+    <string name="main_tambahPeternakan">Tambah Peternakan</string>
+    <string name="main_rubahPeternakan">Rubah Peternakan</string>
+
+    <string name="hint_meter">meter</string>
+
+    <string name="error_emptyField">Field tidak boleh kosong.</string>
+    <string name="error_invalidEmail">Format Email tidak valid.</string>
+    <string name="error_numberError">Angka harus diatas 0.</string>
+
+    <string name="message_successInsert">Berhasil memasukkan data.</string>
+    <string name="message_successUpdate">Berhasil memperbaruhi data.</string>
 </resources>

@@ -18,8 +18,8 @@ public class Peternakan {
     private Long idPeternakan;
 
     private String namaPeternakan;
+    private float panjang;
     private float lebar;
-    private float tinggi;
 
     private Long idUser;
 
@@ -34,13 +34,13 @@ public class Peternakan {
     @Generated(hash = 1278146887)
     private transient PeternakanDao myDao;
 
-    @Generated(hash = 1924298123)
-    public Peternakan(Long idPeternakan, String namaPeternakan, float lebar,
-            float tinggi, Long idUser) {
+    @Generated(hash = 2075343133)
+    public Peternakan(Long idPeternakan, String namaPeternakan, float panjang,
+            float lebar, Long idUser) {
         this.idPeternakan = idPeternakan;
         this.namaPeternakan = namaPeternakan;
+        this.panjang = panjang;
         this.lebar = lebar;
-        this.tinggi = tinggi;
         this.idUser = idUser;
     }
 
@@ -64,20 +64,20 @@ public class Peternakan {
         this.namaPeternakan = namaPeternakan;
     }
 
+    public float getPanjang() {
+        return this.panjang;
+    }
+
+    public void setPanjang(float panjang) {
+        this.panjang = panjang;
+    }
+
     public float getLebar() {
         return this.lebar;
     }
 
     public void setLebar(float lebar) {
         this.lebar = lebar;
-    }
-
-    public float getTinggi() {
-        return this.tinggi;
-    }
-
-    public void setTinggi(float tinggi) {
-        this.tinggi = tinggi;
     }
 
     public Long getIdUser() {
@@ -159,4 +159,5 @@ public class Peternakan {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getPeternakanDao() : null;
     }
+
 }

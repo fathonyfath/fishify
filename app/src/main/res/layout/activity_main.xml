@@ -14,6 +14,11 @@
 
         <include layout="@layout/view_toolbar" />
 
+        <FrameLayout
+            android:id="@+id/main_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
@@ -33,28 +38,99 @@
                 android:layout_height="144dp"
                 android:background="@drawable/header"
                 android:padding="14dp">
+
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="12dp"
-                    android:src="@drawable/ic_profile"/>
+                    android:src="@drawable/ic_profile" />
+
                 <TextView
                     android:id="@+id/main_navNama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Fathony Teguh Irawan"
                     android:layout_above="@+id/main_navEmail"
                     android:layout_marginBottom="4dp"
-                    android:textColor="@color/material_light_white"/>
+                    android:textColor="@color/material_light_white"
+                    tools:text="Fathony Teguh Irawan" />
+
                 <TextView
                     android:id="@+id/main_navEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="xbradhawkx@gmail.com"
                     android:layout_alignParentBottom="true"
-                    android:textColor="@color/material_light_white"/>
+                    android:textColor="@color/material_light_white"
+                    tools:text="xbradhawkx@gmail.com" />
             </RelativeLayout>
 
+            <FrameLayout
+                android:id="@+id/main_navItem_listPeternakan"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/material_component_lists_single_line_height"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingLeft="@dimen/material_component_lists_icon_left_padding"
+                android:paddingRight="@dimen/material_component_lists_right_padding">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/navigation_listPeternakan"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/main_navItem_listIkanTernak"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/material_component_lists_single_line_height"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingLeft="@dimen/material_component_lists_icon_left_padding"
+                android:paddingRight="@dimen/material_component_lists_right_padding">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/navigation_listIkanTernak"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivider" />
+
+
+            <FrameLayout
+                android:id="@+id/main_navItem_keluar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/material_component_lists_single_line_height"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingLeft="@dimen/material_component_lists_icon_left_padding"
+                android:paddingRight="@dimen/material_component_lists_right_padding">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/navigation_keluar"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+            </FrameLayout>
 
         </LinearLayout>
 
