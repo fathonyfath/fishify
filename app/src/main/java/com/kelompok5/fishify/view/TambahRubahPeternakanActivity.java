@@ -1,5 +1,6 @@
 package com.kelompok5.fishify.view;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 
 import com.kelompok5.fishify.R;
 import com.kelompok5.fishify.controller.PeternakanController;
+import com.kelompok5.fishify.model.Peternakan;
+import com.kelompok5.fishify.utils.Constant;
 import com.kelompok5.fishify.utils.Validator;
 import com.kelompok5.fishify.utils.mvc.BaseActivity;
 
@@ -24,6 +27,7 @@ import butterknife.ButterKnife;
 public class TambahRubahPeternakanActivity extends BaseActivity<PeternakanController> {
 
     public static final String PETERNAKAN_PARAM = "IdPeternakanParam";
+    public static final int TAMBAH_RUBAH_ID = Constant.TAMBAH_RUBAH_IDENTIFIER;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -55,6 +59,19 @@ public class TambahRubahPeternakanActivity extends BaseActivity<PeternakanContro
 
         if(isDataBaru) actionBar.setTitle(R.string.main_tambahPeternakan);
         else toolbar.setTitle(R.string.main_rubahPeternakan);
+
+        fillField();
+    }
+
+    private void fillField() {
+        if(!isDataBaru) {
+            Peternakan peternakan = getController().fetchPeternakan(idPeternakan);
+            if(peternakan != null) {
+                namaPeternakanEditText.setText(peternakan.getNamaPeternakan());
+                panjangPeternakanEditText.setText(String.valueOf(peternakan.getPanjang()));
+                lebarPeternakanEditText.setText(String.valueOf(peternakan.getLebar()));
+            }
+        }
     }
 
     private void validate() {
@@ -103,6 +120,7 @@ public class TambahRubahPeternakanActivity extends BaseActivity<PeternakanContro
                     Float.parseFloat(lebarPeternakan.toString()));
             if(result) {
                 Toast.makeText(this, R.string.message_successInsert, Toast.LENGTH_SHORT).show();
+                setResult(Activity.RESULT_OK);
                 finish();
             }
         } else {
@@ -111,6 +129,7 @@ public class TambahRubahPeternakanActivity extends BaseActivity<PeternakanContro
                     Float.parseFloat(lebarPeternakan.toString()));
             if(result) {
                 Toast.makeText(this, R.string.message_successUpdate, Toast.LENGTH_SHORT).show();
+                setResult(Activity.RESULT_OK);
                 finish();
             }
         }

@@ -5,6 +5,7 @@
 
     <string name="main_listPeternakan">List Peternakan</string>
     <string name="main_listIkanTernak">List Ikan Ternak</string>
+    <string name="main_detailPeternakan">Detail Peternakan</string>
 
     <string name="navigation_listPeternakan">List Peternakan</string>
     <string name="navigation_listIkanTernak">List Ikan Ternak</string>
@@ -12,9 +13,15 @@
 
     <string name="daftarPeternakan_tidakAdaPeternakan">Tidak ada peternakan yang terdaftar, silahkan tambah peternakan anda terlebih dahulu.</string>
 
+    <string name="detailPeternakan_daftarIkan">Daftar Ikan</string>
+    <string name="detailPeternakan_tidakAdaIkan">Tidak ada ikan yang terdaftar, silahkan tambah ikan ternak anda terlebih dahulu.</string>
+
+
     <string name="menu_tambahPeternakan">Tambah Peternakan</string>
     <string name="menu_simpan">Simpan</string>
     <string name="menu_batal">Batal</string>
+    <string name="menu_rubah">Rubah</string>
+    <string name="menu_hapus">Hapus</string>
 
     <string name="motto">Partnermu saat beternak ikan.</string>
     <string name="text_register">Register</string>
@@ -39,7 +46,13 @@
     <string name="error_emptyField">Field tidak boleh kosong.</string>
     <string name="error_invalidEmail">Format Email tidak valid.</string>
     <string name="error_numberError">Angka harus diatas 0.</string>
+    <string name="error_parameterInvalid">Parameter yang dikirim tidak lengkap.</string>
 
     <string name="message_successInsert">Berhasil memasukkan data.</string>
     <string name="message_successUpdate">Berhasil memperbaruhi data.</string>
+    <string name="message_hapusPeternakan">Hapus Peternakan</string>
+    <string name="message_hapusPeternakanBody">Menghapus peternakan ini juga akan menghapus data ikan yang ada didalamnya. Anda yakin ingin melanjutkan?</string>
+
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Batal</string>
 </resources>

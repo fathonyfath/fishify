@@ -1,6 +1,7 @@
 package com.kelompok5.fishify.controller;
 
 import com.kelompok5.fishify.FishifyApplication;
+import com.kelompok5.fishify.model.IkanTernak;
 import com.kelompok5.fishify.model.Peternakan;
 import com.kelompok5.fishify.model.PeternakanDao;
 import com.kelompok5.fishify.model.User;
@@ -21,6 +22,7 @@ public class PeternakanController extends BaseController {
     }
 
     public boolean addPeternakan(String namaPeternakan, float panjangPeternakan, float lebarPeternakan) {
+        if(panjangPeternakan <= 0.0f || lebarPeternakan <= 0.0f) return false;
         User loginUser = getLoginUser();
         Peternakan peternakan = new Peternakan(null, namaPeternakan, panjangPeternakan, lebarPeternakan, loginUser.getIdPengguna());
         PeternakanDao dao = FishifyApplication.getDaoSession().getPeternakanDao();
@@ -29,6 +31,7 @@ public class PeternakanController extends BaseController {
     }
 
     public boolean updatePeternakan(Long idPeternakan, String namaPeternakan, float panjangPeternakan, float lebarPeternakan) {
+        if(panjangPeternakan <= 0.0f || lebarPeternakan <= 0.0f) return false;
         Peternakan peternakan = fetchPeternakan(idPeternakan);
         peternakan.setNamaPeternakan(namaPeternakan);
         peternakan.setPanjang(panjangPeternakan);
@@ -46,5 +49,16 @@ public class PeternakanController extends BaseController {
     public List<Peternakan> fetchAllPeternakan() {
         PeternakanDao dao = FishifyApplication.getDaoSession().getPeternakanDao();
         return dao.queryBuilder().list();
+    }
+
+    public boolean deletePeternakan(Long idPeternakan) {
+        PeternakanDao dao = FishifyApplication.getDaoSession().getPeternakanDao();
+        dao.deleteByKey(idPeternakan);
+        return true;
+    }
+
+    public List<IkanTernak> fetchIkanTernak(Long idPeternakan) {
+        Peternakan peternakan = fetchPeternakan(idPeternakan);
+        return peternakan.getIkanTernakList();
     }
 }

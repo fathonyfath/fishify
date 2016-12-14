@@ -1,5 +1,6 @@
 package com.kelompok5.fishify.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import butterknife.ButterKnife;
 import io.nlopez.smartadapters.SmartAdapter;
 import io.nlopez.smartadapters.adapters.MultiAdapter;
 import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
+import io.nlopez.smartadapters.utils.ViewEventListener;
 
 /**
  * Created by bradhawk on 12/10/2016.
@@ -88,6 +90,16 @@ public class MainActivity extends BaseActivity<PeternakanController> {
 
         peternakanAdapter = SmartAdapter.empty()
                 .map(Peternakan.class, PeternakanViewHolder.class)
+                .listener(new ViewEventListener<Peternakan>() {
+                    @Override
+                    public void onViewEvent(int actionId, Peternakan item, int position, View view) {
+                        if(actionId == PeternakanViewHolder.ITEM_CLICK) {
+                            Intent intent = new Intent(MainActivity.this, DetailPeternakanActivity.class);
+                            intent.putExtra(DetailPeternakanActivity.PETERNAKAN_PARAM, item.getIdPeternakan());
+                            startActivity(intent);
+                        }
+                    }
+                })
                 .recyclerAdapter();
 
         daftarPeternakanView.peternakanRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -151,6 +163,12 @@ public class MainActivity extends BaseActivity<PeternakanController> {
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        refreshPeternakanList();
+    }
+
+    @Override
     protected PeternakanController createController() {
         return new PeternakanController();
     }
@@ -190,12 +208,16 @@ public class MainActivity extends BaseActivity<PeternakanController> {
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        fillPeternakanList();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == TambahRubahPeternakanActivity.TAMBAH_RUBAH_ID) {
+            if(resultCode == Activity.RESULT_OK) {
+                refreshPeternakanList();
+            }
+        }
     }
 
-    private void fillPeternakanList() {
+    private void refreshPeternakanList() {
         List<Peternakan> peternakanList = getController().fetchAllPeternakan();
         if(!peternakanList.isEmpty()) {
             peternakanAdapter.clearItems();
@@ -210,7 +232,7 @@ public class MainActivity extends BaseActivity<PeternakanController> {
 
     private void tambahPeternakanButton() {
         Intent intent = new Intent(this, TambahRubahPeternakanActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, TambahRubahPeternakanActivity.TAMBAH_RUBAH_ID);
     }
 
     class DaftarPeternakanView extends AbstractView {

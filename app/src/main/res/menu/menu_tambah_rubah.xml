@@ -5,11 +5,11 @@
         android:id="@+id/tambahRubah_simpan"
         android:icon="@drawable/ic_save"
         android:title="@string/menu_simpan"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/tambahRubah_batal"
         android:icon="@drawable/ic_close"
         android:title="@string/menu_batal"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 </menu>

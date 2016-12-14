@@ -1,7 +1,9 @@
 package com.kelompok5.fishify.holder;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.kelompok5.fishify.R;
@@ -16,6 +18,11 @@ import io.nlopez.smartadapters.views.BindableFrameLayout;
  */
 
 public class PeternakanViewHolder extends BindableFrameLayout<Peternakan> {
+
+    public static final int ITEM_CLICK = 1;
+
+    @BindView(R.id.itemPeternakan_container)
+    FrameLayout container;
 
     @BindView(R.id.itemPeternakan_namaPeternakan)
     TextView namaPeternakanTextView;
@@ -38,5 +45,11 @@ public class PeternakanViewHolder extends BindableFrameLayout<Peternakan> {
     @Override
     public void bind(Peternakan peternakan) {
         namaPeternakanTextView.setText(peternakan.getNamaPeternakan());
+        container.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notifyItemAction(ITEM_CLICK);
+            }
+        });
     }
 }
