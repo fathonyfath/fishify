@@ -47,7 +47,7 @@ public class TambahRubahPeternakanActivity extends BaseActivity<PeternakanContro
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tambah_rubah);
+        setContentView(R.layout.activity_tambah_rubah_peternakan);
         ButterKnife.bind(this);
 
         if(toolbar != null) setSupportActionBar(toolbar);

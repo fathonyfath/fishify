@@ -35,11 +35,16 @@
     <string name="hint_panjangPeternakan">Panjang Peternakan</string>
     <string name="hint_lebarPeternakan">Lebar Peternakan</string>
 
+    <string name="hint_namaIkan">Nama Ikan</string>
+    <string name="hint_jenisIkan">Jenis Ikan</string>
+
     <string name="jenis_laki">Laki-laki</string>
     <string name="jenis_perempuan">Perempuan</string>
 
     <string name="main_tambahPeternakan">Tambah Peternakan</string>
     <string name="main_rubahPeternakan">Rubah Peternakan</string>
+    <string name="main_tambahIkanTernak">Tambah Ikan Ternak</string>
+    <string name="main_rubahIkanTernak">Rubah Peternakan</string>
 
     <string name="hint_meter">meter</string>
 
@@ -53,6 +58,11 @@
     <string name="message_hapusPeternakan">Hapus Peternakan</string>
     <string name="message_hapusPeternakanBody">Menghapus peternakan ini juga akan menghapus data ikan yang ada didalamnya. Anda yakin ingin melanjutkan?</string>
 
+    <string name="message_hapusIkanTernak">Hapus Ikan Ternak</string>
+    <string name="message_hapusIkanTernakBody">Anda yakin ingin melanjutkan?</string>
+
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Batal</string>
+
+    <string name="button_ambilGambar">Ambil Gambar</string>
 </resources>

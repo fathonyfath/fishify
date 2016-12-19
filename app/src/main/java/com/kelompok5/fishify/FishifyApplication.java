@@ -31,7 +31,7 @@ public class FishifyApplication extends Application {
         if(app == null) app = this;
 
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "fishify-db");
-        Database db = helper.getWritableDb();
+        Database db = helper.getEncryptedWritableDb("fishifykece");
         daoSession = new DaoMaster(db).newSession();
     }
 

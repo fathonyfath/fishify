@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemIkanTernak_container"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:background="@color/material_light_white"
+    android:clickable="true"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/itemIkanTernak_namaIkan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="16sp"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
+
+</FrameLayout>

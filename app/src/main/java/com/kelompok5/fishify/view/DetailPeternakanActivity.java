@@ -7,16 +7,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kelompok5.fishify.R;
 import com.kelompok5.fishify.controller.PeternakanController;
+import com.kelompok5.fishify.holder.IkanTernakViewHolder;
 import com.kelompok5.fishify.model.IkanTernak;
 import com.kelompok5.fishify.model.Peternakan;
 import com.kelompok5.fishify.utils.mvc.BaseActivity;
@@ -26,6 +29,9 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.nlopez.smartadapters.SmartAdapter;
+import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
+import io.nlopez.smartadapters.utils.ViewEventListener;
 
 /**
  * Created by bradhawk on 12/14/2016.
@@ -50,9 +56,14 @@ public class DetailPeternakanActivity extends BaseActivity<PeternakanController>
     @BindView(R.id.detailPeternakan_noDataAvailable)
     TextView messageNoDataAvailable;
 
+    @BindView(R.id.detailPeternakan_addIkan)
+    ImageView addIkan;
+
     private ActionBar actionBar;
 
     private long idPeternakan;
+
+    private RecyclerMultiAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +80,35 @@ public class DetailPeternakanActivity extends BaseActivity<PeternakanController>
         idPeternakan = getIntent().getLongExtra(PETERNAKAN_PARAM, -1);
         if(idPeternakan == -1) cancelActivityShowing();
 
+        adapter = SmartAdapter.empty()
+                .map(IkanTernak.class, IkanTernakViewHolder.class)
+                .listener(new ViewEventListener<IkanTernak>() {
+                    @Override
+                    public void onViewEvent(int actionId, IkanTernak item, int position, View view) {
+                        Intent intent = new Intent(DetailPeternakanActivity.this, DetailIkanTernakActivity.class);
+                        intent.putExtra(DetailIkanTernakActivity.ID_PETERNAKAN, idPeternakan);
+                        intent.putExtra(DetailIkanTernakActivity.IKAN_TERNAK_PARAM, item.getIdIkanTernak());
+                        startActivity(intent);
+                    }
+                })
+                .recyclerAdapter();
+
         ikanListRecycler.setNestedScrollingEnabled(false);
+        ikanListRecycler.setLayoutManager(new LinearLayoutManager(this));
+        ikanListRecycler.setAdapter(adapter);
+
+        addIkan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addIkan();
+            }
+        });
+    }
+
+    private void addIkan() {
+        Intent intent = new Intent(this, TambahRubahIkanTernakActivity.class);
+        intent.putExtra(TambahRubahIkanTernakActivity.PETERNAKAN_PARAM, idPeternakan);
+        startActivityForResult(intent, TambahRubahIkanTernakActivity.TAMBAH_RUBAH_IKAN_TERNAK_ID);
     }
 
     private void showRecycler() {
@@ -90,7 +129,9 @@ public class DetailPeternakanActivity extends BaseActivity<PeternakanController>
     }
 
     private void refreshIkanList() {
-        List<IkanTernak> ikanTernakList = getController().fetchIkanTernak(idPeternakan);
+        List<IkanTernak> ikanTernakList = getController().fetchIkanTernakByPeternakan(idPeternakan);
+        adapter.setItems(ikanTernakList);
+        adapter.notifyDataSetChanged();
         if(!ikanTernakList.isEmpty()) {
             showRecycler();
         } else {
@@ -136,6 +177,10 @@ public class DetailPeternakanActivity extends BaseActivity<PeternakanController>
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == TambahRubahPeternakanActivity.TAMBAH_RUBAH_ID) {
             if(resultCode == Activity.RESULT_OK) {
+                refreshDataDisplay();
+            }
+        } else if(requestCode == TambahRubahIkanTernakActivity.TAMBAH_RUBAH_IKAN_TERNAK_ID) {
+            if(resultCode == RESULT_OK) {
                 refreshDataDisplay();
             }
         }

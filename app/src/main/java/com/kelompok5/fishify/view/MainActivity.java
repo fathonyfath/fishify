@@ -23,13 +23,18 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.kelompok5.fishify.R;
+import com.kelompok5.fishify.alarms.AlarmBroadcastReceiver;
 import com.kelompok5.fishify.controller.PeternakanController;
+import com.kelompok5.fishify.holder.IkanTernakViewHolder;
 import com.kelompok5.fishify.holder.PeternakanViewHolder;
+import com.kelompok5.fishify.model.IkanTernak;
 import com.kelompok5.fishify.model.Peternakan;
 import com.kelompok5.fishify.model.User;
 import com.kelompok5.fishify.utils.AbstractView;
+import com.kelompok5.fishify.utils.Constant;
 import com.kelompok5.fishify.utils.mvc.BaseActivity;
 
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -72,6 +77,7 @@ public class MainActivity extends BaseActivity<PeternakanController> {
     private AbstractView activatedView;
 
     private RecyclerMultiAdapter peternakanAdapter;
+    private RecyclerMultiAdapter ikanTernakAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,8 +108,26 @@ public class MainActivity extends BaseActivity<PeternakanController> {
                 })
                 .recyclerAdapter();
 
+        ikanTernakAdapter = SmartAdapter.items(getController().getDataIkanBiasaDiTernakList())
+                .map(IkanTernak.class, IkanTernakViewHolder.class)
+                .listener(new ViewEventListener<IkanTernak>() {
+                    @Override
+                    public void onViewEvent(int actionId, IkanTernak item, int position, View view) {
+                        if(actionId == IkanTernakViewHolder.ITEM_CLICK) {
+                            Intent intent = new Intent(MainActivity.this, DetailIkanBiasaDiternakActivity.class);
+                            intent.putExtra(DetailIkanBiasaDiternakActivity.NAMA_IKAN, item.getNamaIkan());
+                            intent.putExtra(DetailIkanBiasaDiternakActivity.DESKRIPSI_IKAN, item.getJenisIkan());
+                            startActivity(intent);
+                        }
+                    }
+                })
+                .recyclerAdapter();
+
         daftarPeternakanView.peternakanRecycler.setLayoutManager(new LinearLayoutManager(this));
         daftarPeternakanView.peternakanRecycler.setAdapter(peternakanAdapter);
+
+        ikanTernakView.daftarIkanTernak.setLayoutManager(new LinearLayoutManager(this));
+        ikanTernakView.daftarIkanTernak.setAdapter(ikanTernakAdapter);
 
         peternakanButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,12 +244,14 @@ public class MainActivity extends BaseActivity<PeternakanController> {
     private void refreshPeternakanList() {
         List<Peternakan> peternakanList = getController().fetchAllPeternakan();
         if(!peternakanList.isEmpty()) {
+            AlarmBroadcastReceiver.setAlarms(getApplicationContext());
             peternakanAdapter.clearItems();
             peternakanAdapter.setItems(peternakanList);
             peternakanAdapter.notifyDataSetChanged();
 
             daftarPeternakanView.showRecycler();
         } else {
+            AlarmBroadcastReceiver.cancelAlarms(getApplicationContext());
             daftarPeternakanView.showMessage();
         }
     }
@@ -272,10 +298,14 @@ public class MainActivity extends BaseActivity<PeternakanController> {
 
     class IkanTernakView extends AbstractView {
 
+        @BindView(R.id.daftarIkanTernak_recycler)
+        RecyclerView daftarIkanTernak;
+
         private View view;
 
         IkanTernakView(View view) {
             this.view = view;
+            ButterKnife.bind(this, view);
         }
 
         @Override
